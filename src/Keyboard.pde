@@ -3,10 +3,12 @@ import java.awt.event.KeyEvent;
 
 static class Keyboard {
 
-  static Map Keys = new HashMap<String, Integer>();
-  static Map KeyState = new HashMap<Integer, Boolean>();
+  static Map Keys = new HashMap<String, Integer>();       //HashMap for Relation between names such as "LEFT" and their respective KeyCodes
+  static Map KeyState = new HashMap<Integer, Boolean>();  //HashMap for the States of the Keys
 
-  static void loadKeys() {  
+
+  //Adds all the Keys to the Map
+  static void loadKeys() {     
     Keys.put("LEFT", LEFT);
     Keys.put("RIGHT", RIGHT);
     Keys.put("UP", UP);
@@ -18,13 +20,14 @@ static class Keyboard {
     Keys.put("ALT", KeyEvent.VK_ALT);
     Keys.put("ENTER", KeyEvent.VK_ENTER);
         
-        // all letters
+        //Add all letters
     for (char i='A'; i<'A'+26; i++) {
       Keys.put(String.valueOf(i), (int)i);
     }
   }
-
-  static boolean keyPressed(int key) {
+  
+  //Return whether the Key is pressed or not
+  static boolean keyPressed(int key) {    
     try {
       return (boolean) KeyState.get(key);
     } 
@@ -33,6 +36,7 @@ static class Keyboard {
     }
   }
 
+  //Return whether the Key is pressed or not after converting the String to the corresponding keyCode
   static boolean keyPressed(String key) {
     try {
       return (boolean) KeyState.get(Keys.get(key.toUpperCase()));
@@ -42,6 +46,7 @@ static class Keyboard {
     }
   }
 
+  //Updates the Value for the Key that was Pressed
   static void pressed(int code) {
     try {
       KeyState.put(code, true);
@@ -50,6 +55,8 @@ static class Keyboard {
       println(e);
     }
   }
+  
+  //Updates the Value for the Key that was Released
   static void released(int code) {
     try {
       KeyState.put(code, false);
